@@ -7,7 +7,7 @@ int main(int argc, char** argv)
     int index = 0;
     int buffer[BUFFER_MAX];
 
-    FILE* fp = fopen("input.txt", "r");
+    FILE* fp = fopen("../data/1.txt", "r");
 
     if (fp)
     {
@@ -28,15 +28,11 @@ int main(int argc, char** argv)
     {
         for (int j = 1; j < index; j++)
         {
-            for (int k = 2; k < index; k++)
+            if (buffer[i] + buffer[j] == 2020)
             {
-                if (buffer[i] + buffer[j] + buffer[k] == 2020)
-                {
-                    printf("Found it: %d * %d * %d = %d\n",
-                        buffer[i], buffer[j], buffer[k], 
-                        buffer[i] * buffer[j] * buffer[k]);
-                    return 0;
-                }
+                printf("Found it: %d * %d = %d\n",
+                    buffer[i], buffer[j], buffer[i] * buffer[j]);
+                return 0;
             }
         }
     }
