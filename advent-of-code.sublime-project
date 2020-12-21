@@ -16,18 +16,19 @@
     [
         {
             "name": "AdventBuild",
-            "shell_cmd": "gcc -Wall \"${file}\" -o ../build/\"${file_base_name}\"",
             "file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
             "working_dir": "${file_path}",
             "selector": "source.c",
 
-            "variants":
-            [
-                {
-                    "name": "Run",
-                    "shell_cmd": "gcc -Wall \"${file}\" -o ../build/\"${file_base_name}\" && ../build/\"${file_base_name}\""
-                }
-            ]
+            "linux":
+            {
+                "shell_cmd": "gcc -Wall \"${file}\" -o ../build/\"${file_base_name}\""
+            },
+            "windows":
+            {
+                "path": "%PATH%C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Auxiliary/Build/",
+                "shell_cmd": "vcvarsall.bat x64 && cl -Od -MTd -nologo -fp:fast -fp:except- -Gm- -GR -EHsa- -Zo -Oi -WX -W1 -Z7 -I ../src /diagnostics:column -FC -Fe../build/${file_base_name}.exe -Fo../build/ ${file}"
+            }
         }
     ]
 }
